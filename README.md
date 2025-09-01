@@ -4,8 +4,9 @@ Install and run macOS in a virtual machine using the Virtualization framework.
 
 🔥 Features:
 - CPU: set $VM_CPU_NUM
-- RAM: set $VM_MEM_SIZE (GiB)
+- RAM: set $VM_RAM_SIZE (GiB)
 - Bundle path: set $VM_BUNDLE_PATH (defaults to $HOME/VM.bundle)
+- Recovery mode: set $VM_RECOVERY_MODE=1
 
 Cleanup Bullshit™.
 

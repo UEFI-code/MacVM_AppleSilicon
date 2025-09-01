@@ -112,11 +112,24 @@ The app delegate that sets up and starts the virtual machine.
 
 - (void)startVirtualMachine
 {
-    [_virtualMachine startWithCompletionHandler:^(NSError * _Nullable error) {
-        if (error) {
-            abortWithErrorMessage([NSString stringWithFormat:@"%@%@", @"Virtual machine failed to start with ", error.localizedDescription]);
-        }
-    }];
+    if (getenv("VM_RECOVERY_MODE")) {
+        printf("Starting VM in recovery mode.\n");
+        VZMacOSVirtualMachineStartOptions *options = [[VZMacOSVirtualMachineStartOptions alloc] init];
+        options.startUpFromMacOSRecovery = YES;
+        [_virtualMachine startWithOptions:options completionHandler:^(NSError * _Nullable error) {
+            if (error) {
+                abortWithErrorMessage([NSString stringWithFormat:@"%@%@", @"Virtual machine failed to start in recovery mode with ", error.localizedDescription]);
+            }
+        }];
+    }
+    else {
+        printf("Starting VM in normal mode.\n");
+        [_virtualMachine startWithCompletionHandler:^(NSError * _Nullable error) {
+            if (error) {
+                abortWithErrorMessage([NSString stringWithFormat:@"%@%@", @"Virtual machine failed to start with ", error.localizedDescription]);
+            }
+        }];
+    }
 }
 
 - (void)resumeVirtualMachine

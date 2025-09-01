@@ -20,7 +20,7 @@ void init_vm_config(void)
 {
     char *cpu_env = getenv("VM_CPU_NUM");
     if (cpu_env) vm_cpu_num = (uint8_t)atoi(cpu_env);
-    char *mem_env = getenv("VM_MEM_SIZE");
+    char *mem_env = getenv("VM_RAM_SIZE");
     if (mem_env) vm_ram_size = (uint64_t)atoll(mem_env) * 1024ull * 1024ull * 1024ull;
     char *bundle_env = getenv("VM_BUNDLE_PATH");
     if (bundle_env) strncpy(vm_bundle_path, bundle_env, sizeof(vm_bundle_path) - 1);
