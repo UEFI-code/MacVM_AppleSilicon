@@ -26,8 +26,7 @@ Download the latest macOS restore image from the network.
         }
 
         NSLog(@"Attempting to download the latest available restore image.");
-        NSURLSessionDownloadTask *downloadTask = [[NSURLSession sharedSession] downloadTaskWithURL:restoreImage.URL
-                                                                                 completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        NSURLSessionDownloadTask *downloadTask = [[NSURLSession sharedSession] downloadTaskWithURL:restoreImage.URL completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
             if (error) {
                 abortWithErrorMessage([NSString stringWithFormat:@"Failed to download restore image. %@", error.localizedDescription]);
             }
