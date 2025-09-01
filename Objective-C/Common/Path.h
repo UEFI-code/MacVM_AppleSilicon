@@ -10,14 +10,12 @@ A helper function to retrieve the various file URLs that this sample code uses.
 
 #import <Foundation/Foundation.h>
 
-static inline NSString *getVMBundlePath(void)
-{
-    return [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), @"/VM.bundle/"];
-}
-
+extern char vm_bundle_path[128];
+#define fuckingNSStr(var) [NSString stringWithUTF8String:var]
+    
 static inline NSURL *getVMBundleURL(void)
 {
-    return [[NSURL alloc] initFileURLWithPath:getVMBundlePath()];
+    return [[NSURL alloc] initFileURLWithPath:fuckingNSStr(vm_bundle_path)];
 }
 
 static inline NSURL *getAuxiliaryStorageURL(void)

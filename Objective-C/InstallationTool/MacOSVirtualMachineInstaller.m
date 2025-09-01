@@ -129,12 +129,12 @@ static void createDiskImage(void)
     configuration.platform = [self createMacPlatformConfiguration:macOSConfiguration];
     assert(configuration.platform);
 
-    configuration.CPUCount = [MacOSVirtualMachineConfigurationHelper computeCPUCount];
+    configuration.CPUCount = vm_cpu_num;
     if (configuration.CPUCount < macOSConfiguration.minimumSupportedCPUCount) {
         abortWithErrorMessage(@"CPUCount is not supported by the macOS configuration.");
     }
 
-    configuration.memorySize = [MacOSVirtualMachineConfigurationHelper computeMemorySize];
+    configuration.memorySize = vm_ram_size;
     if (configuration.memorySize < macOSConfiguration.minimumSupportedMemorySize) {
         abortWithErrorMessage(@"memorySize is not supported by the macOS configuration.");
     }

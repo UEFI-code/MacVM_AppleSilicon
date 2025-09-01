@@ -11,10 +11,12 @@ The entry for `InstallationTool`.
 #import "Path.h"
 
 #import <Foundation/Foundation.h>
+void init_vm_config(void);
 
 int main(int argc, const char * argv[])
 {
 #ifdef __arm64__
+    init_vm_config();
     @autoreleasepool {
         MacOSVirtualMachineInstaller *installer = [MacOSVirtualMachineInstaller new];
 

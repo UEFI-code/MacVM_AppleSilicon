@@ -12,27 +12,24 @@ The helper that creates various configuration objects exposed in the `VZVirtualM
 
 #ifdef __arm64__
 
+uint8_t vm_cpu_num = 2;
+uint64_t vm_ram_size = 2ull * 1024ull * 1024ull * 1024ull;
+char vm_bundle_path[128] = {0};
+
+void init_vm_config(void)
+{
+    char *cpu_env = getenv("VM_CPU_NUM");
+    if (cpu_env) vm_cpu_num = (uint8_t)atoi(cpu_env);
+    char *mem_env = getenv("VM_MEM_SIZE");
+    if (mem_env) vm_ram_size = (uint64_t)atoll(mem_env) * 1024ull * 1024ull * 1024ull;
+    char *bundle_env = getenv("VM_BUNDLE_PATH");
+    if (bundle_env) strncpy(vm_bundle_path, bundle_env, sizeof(vm_bundle_path) - 1);
+    else sprintf(vm_bundle_path, "%s/VM.bundle", getenv("HOME"));
+    printf("---init_vm_config----\nCPU: %d\nRAM: %llu\nBundle: %s\n", vm_cpu_num, vm_ram_size, vm_bundle_path);
+    sleep(3);
+}
+
 @implementation MacOSVirtualMachineConfigurationHelper
-
-+ (NSUInteger)computeCPUCount
-{
-    NSUInteger totalAvailableCPUs = [[NSProcessInfo processInfo] processorCount];
-    NSUInteger virtualCPUCount = totalAvailableCPUs <= 1 ? 1 : totalAvailableCPUs - 1;
-    virtualCPUCount = MAX(virtualCPUCount, VZVirtualMachineConfiguration.minimumAllowedCPUCount);
-    virtualCPUCount = MIN(virtualCPUCount, VZVirtualMachineConfiguration.maximumAllowedCPUCount);
-
-    return virtualCPUCount;
-}
-
-+ (uint64_t)computeMemorySize
-{
-    // Set the amount of system memory to 4 GB; this is a baseline value that you can change depending on your use case.
-    uint64_t memorySize = 4ull * 1024ull * 1024ull * 1024ull;
-    memorySize = MAX(memorySize, VZVirtualMachineConfiguration.minimumAllowedMemorySize);
-    memorySize = MIN(memorySize, VZVirtualMachineConfiguration.maximumAllowedMemorySize);
-
-    return memorySize;
-}
 
 + (VZMacOSBootLoader *)createBootLoader
 {

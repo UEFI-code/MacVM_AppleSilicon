@@ -37,8 +37,8 @@ The app delegate that sets up and starts the virtual machine.
     VZMacAuxiliaryStorage *auxiliaryStorage = [[VZMacAuxiliaryStorage alloc] initWithContentsOfURL:getAuxiliaryStorageURL()];
     macPlatformConfiguration.auxiliaryStorage = auxiliaryStorage;
 
-    if (![[NSFileManager defaultManager] fileExistsAtPath:getVMBundlePath()]) {
-        abortWithErrorMessage([NSString stringWithFormat:@"Missing Virtual Machine Bundle at %@. Run InstallationTool first to create it.", getVMBundlePath()]);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:fuckingNSStr(vm_bundle_path)]) {
+        abortWithErrorMessage([NSString stringWithFormat:@"Missing Virtual Machine Bundle at %@. Run InstallationTool first to create it.",fuckingNSStr(vm_bundle_path)]);
     }
 
     // Retrieve the hardware model and save this value to disk during installation.
@@ -80,8 +80,8 @@ The app delegate that sets up and starts the virtual machine.
     VZVirtualMachineConfiguration *configuration = [VZVirtualMachineConfiguration new];
 
     configuration.platform = [self createMacPlatformConfiguration];
-    configuration.CPUCount = [MacOSVirtualMachineConfigurationHelper computeCPUCount];
-    configuration.memorySize = [MacOSVirtualMachineConfigurationHelper computeMemorySize];
+    configuration.CPUCount = vm_cpu_num;
+    configuration.memorySize = vm_ram_size;
 
     configuration.bootLoader = [MacOSVirtualMachineConfigurationHelper createBootLoader];
 

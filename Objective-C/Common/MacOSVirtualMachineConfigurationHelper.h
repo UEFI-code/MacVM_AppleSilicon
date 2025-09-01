@@ -12,14 +12,13 @@ The helper that creates various configuration objects exposed in the `VZVirtualM
 
 #ifdef __arm64__
 
+extern uint8_t vm_cpu_num;
+extern uint64_t vm_ram_size;
+
 @interface MacOSVirtualMachineConfigurationHelper : NSObject
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-
-+ (NSUInteger)computeCPUCount;
-
-+ (uint64_t)computeMemorySize;
 
 + (VZMacOSBootLoader *)createBootLoader;
 
