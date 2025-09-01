@@ -1,6 +1,13 @@
-# Running macOS in a virtual machine on Apple silicon 
+# Run macOS VM on Apple silicon 
 
 Install and run macOS in a virtual machine using the Virtualization framework.
+
+🔥 Features:
+- CPU: set $VM_CPU_NUM
+- RAM: set $VM_MEM_SIZE (GiB)
+- Bundle path: set $VM_BUNDLE_PATH (defaults to $HOME/VM.bundle)
+
+Cleanup Bullshit™.
 
 ## Overview
 
